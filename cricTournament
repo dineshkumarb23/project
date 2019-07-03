@@ -1,0 +1,46 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+/* 1-bat 2-bowl 3-all 4-wk 
+rating 1-5
+*/
+using namespace std;
+int a[11],b[11];
+class entroll{
+    public:
+    string players[6];
+    string team_name,captain;
+    int type[6],rating[6];
+    entroll()
+    {
+        srand(time(0));
+    }
+    void select_captain()
+    { 
+     captain=players[rand() % 6];
+    }
+    void print()
+    {      cout<<captain<<endl;
+    }
+};
+void sch(){
+  int i,x;
+  for(i=0;i<10;i++) {x=i;if(x>4) x%=5;a[i]=x;}
+  b[0]=3;b[1]=2;b[2]=0;b[3]=4;b[4]=2;
+  b[5]=1;b[6]=4;b[7]=3;b[8]=1;b[9]=0;
+}
+int main() {
+    int i,j;
+	entroll d[5];
+	for(i=0;i<5;i++){
+	cout<<"Enter team name and player names with type and rating  ";
+	cin>>d[i].team_name;
+	for(j=0;j<6;j++)
+	cin>>d[i].players[j]>>d[i].type[j]>>d[i].rating[j];
+	d[i].select_captain();
+	d[i].print();
+	} 
+	sch();
+	for(i=0;i<10;i++) cout<<d[a[i]].team_name<<" vs "<<d[b[i]].team_name<<endl;
+	return 0;
+}
