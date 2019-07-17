@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include <time.h>
 /* TYPE  1-bat 2-bowl 3-all 4-wk 
+link : https://ide.geeksforgeeks.org/Jotpl9rHxZ
+inputs:
+teamA a1 1 b1 1 c1 2 d1 2 e1 3 f1 4 
+teamB a2 1 b2 1 c2 2 d2 2 e2 3 f2 4
+teamC a3 1 b3 1 c3 2 d3 2 e3 3 f3 4
+teamD a4 1 b4 1 c4 2 d4 2 e4 3 f4 4
+teamE a5 1 b5 1 c5 2 d5 2 e5 3 f5 4
+1 2 3 4 5 6 7 8 9 10
 */
 using namespace std;
 int a[11],b[11];
@@ -62,12 +70,13 @@ int main() {
 	 }
 	 if(win_count==1) points[s]++; else points[t]++;
 	 }
-	 for(i=0;i<45;i++) cout<<"-";
-	 cout<<endl<<"TeamName\t\t"<<"Won\t"<<"Lost\t"<<"Points"<<endl;
-	 for(i=0;i<45;i++) cout<<"-";
 	 cout<<endl;
-	 for(i=0;i<5;i++) cout<<d[i].team_name<<"\t\t\t\t\t\t\t\t\t\t\t\t\t"<<points[i]<<"\t\t\t\t\t\t\t"<<4-points[i]<<"\t\t\t\t\t\t\t\t\t\t\t"<<points[i]*2<<"\n";
-	for(i=0;i<45;i++) cout<<"-";
+	 for(i=0;i<50;i++) cout<<"-";
+	 cout<<endl<<"TeamName\t"<<"played\t"<<"Won\t"<<"Lost\t"<<"Points"<<endl;
+	 for(i=0;i<50;i++) cout<<"-";
+	 cout<<endl;
+	 for(i=0;i<5;i++) cout<<d[i].team_name<<"\t\t4\t"<<points[i]<<"\t"<<4-points[i]<<"\t"<<points[i]*2<<"\n";
+	for(i=0;i<50;i++) cout<<"-";
 	cout<<endl;
 	return 0;
 }
