@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 /* TYPE  1-bat 2-bowl 3-all 4-wk 
-rating 1-5
 */
 using namespace std;
 int a[11],b[11];
@@ -10,7 +9,7 @@ class entroll{
     public:
     string players[6];
     string team_name,captain;
-    int type[6],rating[6];
+    int type[6];
     entroll()
     {
         srand(time(0));
@@ -19,39 +18,56 @@ class entroll{
     { 
      captain=players[rand() % 6];
     }
-    void print()
-    {      cout<<captain<<endl;
-    }
 };
-void sch(){
+void schedule(){
   int i,x;
   for(i=0;i<10;i++) {x=i;if(x>4) x%=5;a[i]=x;}
   b[0]=3;b[1]=2;b[2]=0;b[3]=4;b[4]=2;
-  b[5]=1;b[6]=4;b[7]=3;b[8]=1;b[9]=0;
+  b[5]=1;b[6]=4;b[7]=3;b[8]=1;b[9]=2;
 }
 int main() {
-    int i,j,toss,select,match_number;
+    int i,j,toss,select,match_number,t,s,total1,total2,wick1,wick2,win_count,qualifier1=0,qualifier2=0,q1,q2,max1=0,max2=0;
+    static int points[10];
 	entroll d[5];
+	cout<<"Enter the 5 team names and player names with type\n";
 	for(i=0;i<5;i++){
-	cout<<"Enter team name and player names with type and rating  ";
 	cin>>d[i].team_name;
-	for(j=0;j<6;j++)
-	cin>>d[i].players[j]>>d[i].type[j]>>d[i].rating[j];
+	for(j=0;j<6;j++) cin>>d[i].players[j]>>d[i].type[j];
 	d[i].select_captain();
- 	d[i].print();
 	} 
-	sch();
-	for(i=0;i<10;i++) cout<<i+1<<"  "<<d[a[i]].team_name<<" vs "<<d[b[i]].team_name<<endl;
+	schedule();
+	for(i=0;i<10;i++) cout<<i+1<<") "<<d[a[i]].team_name<<" vs "<<d[b[i]].team_name<<endl;
 	 cout<<"select the match number"<<endl;
-	 cin>>match_number;
+	 while(cin>>match_number){
 	 i=match_number-1;
+	 cout<<"\n";
+	  cout<<match_number<<") "<<d[a[i]].team_name<<" vs "<<d[b[i]].team_name<<endl;
+	 if(match_number<=10){
       toss=rand() % 2;
-      if(toss==0)  cout<<d[a[i]].team_name<<" won the toss and elected to ";
-      else cout<<d[b[i]].team_name<<" won the toss and elected to ";
-      select=rand() %2;
-      if(select==0) cout<<"bat first"<<endl;
-      else cout<<"bowl first"<<endl;
-      
-	}
+      if(toss==0){ t=a[i];s=b[i];}
+      else {t=b[i];s=a[i];}
+      cout<<d[t].team_name<<" won the toss and elected to bat first";
+	  cout<<"\nSummary ";
+	  total1=rand()%75;
+	  wick1=rand()%5;
+	  total2=rand()%(total1+5);
+	  wick2=rand()%4;
+	  if(total1<total2) {cout<<d[s].team_name<<" won\n";win_count=1;
+      cout<<d[t].team_name<<" "<<total1<<"/"<<wick1<<"\n";
+      cout<<d[s].team_name<<" "<<total2<<"/"<<wick2<<"\n";
+	  }
+	  	  else {cout<<d[t].team_name<<" won\n";win_count=0;
+	  	    cout<<d[t].team_name<<" "<<total1<<"/"<<wick1<<"\n";
+      cout<<d[s].team_name<<" "<<total2<<"/"<<wick2<<"\n";}
+	 }
+	 if(win_count==1) points[s]++; else points[t]++;
+	 }
+	 for(i=0;i<45;i++) cout<<"-";
+	 cout<<endl<<"TeamName\t\t"<<"Won\t"<<"Lost\t"<<"Points"<<endl;
+	 for(i=0;i<45;i++) cout<<"-";
+	 cout<<endl;
+	 for(i=0;i<5;i++) cout<<d[i].team_name<<"\t\t\t\t\t\t\t\t\t\t\t\t\t"<<points[i]<<"\t\t\t\t\t\t\t"<<4-points[i]<<"\t\t\t\t\t\t\t\t\t\t\t"<<points[i]*2<<"\n";
+	for(i=0;i<45;i++) cout<<"-";
+	cout<<endl;
 	return 0;
 }
